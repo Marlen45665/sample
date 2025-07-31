@@ -1,35 +1,29 @@
-# Переменные
-COMPOSE=docker-compose
-PROJECT_NAME=fullstack-app
+# FRONTEND
+frontend-build:
+	docker compose build frontend
 
-# Сборка всех сервисов (frontend + backend)
+# BACKEND
+backend-build:
+	docker compose build backend
+
+# Сборка обоих
 build:
-	$(COMPOSE) build
+	docker compose build
 
-# Запуск проекта
+# Запуск
 up:
-	$(COMPOSE) up -d
+	docker compose up -d
 
-# Перезапуск (с пересборкой)
+# Перезапуск
 rebuild:
-	$(COMPOSE) up -d --build
+	docker compose down
+	docker compose build
+	docker compose up -d
 
-# Остановка и удаление всех контейнеров
+# Остановка
 down:
-	$(COMPOSE) down
+	docker compose down
 
-# Просмотр логов
+# Логи
 logs:
-	$(COMPOSE) logs -f
-
-# Зайти в backend-контейнер
-sh-back:
-	docker exec -it $$(docker ps -qf "name=${PROJECT_NAME}_backend") sh
-
-# Зайти в frontend-контейнер
-sh-front:
-	docker exec -it $$(docker ps -qf "name=${PROJECT_NAME}_frontend") sh
-
-# Очистка кэшей и dangling images (необязательно)
-prune:
-	docker system prune -f
+	docker compose logs -f
