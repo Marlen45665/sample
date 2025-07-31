@@ -1,17 +1,20 @@
 version: "3.8"
-
 services:
   frontend:
-    build:
-      context: ./frontend
+    build: ./frontend
     ports:
-      - "5432:80"
-      #5432 это на моем компе 80 это порт в контейнере 
+      - "80:80"
     depends_on:
       - backend
+    networks:
+      - dev
 
   backend:
-    build:
-      context: ./backend
-    ports:
-      - "3001:3001"
+    build: ./backend
+    expose:
+      - "3001"
+    networks:
+      - dev
+
+networks:
+  dev:
