@@ -22,7 +22,7 @@ rebuild:
 
 # Остановка
 down:
-	docker compose down
+	docker-compose down
 
 # Логи
 logs:

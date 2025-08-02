@@ -13,7 +13,6 @@ export const  App = () => {
     <div>
       <h1>Фронт React</h1>
       <p>Ответ с бэка: {message}</p>
-      {'fff'}
     </div>
   );
 }
