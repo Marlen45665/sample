@@ -22,13 +22,25 @@ services:
       context: nginx
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - dist:/usr/share/nginx/html
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
     depends_on:
       - frontend
       - backend
     networks:
       - app-network
+
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    networks:
+      - app-network
+    command: certonly --webroot -w /var/www/certbot --force-renewal --email devmarlen@mail.ru -d 24demo.ru --agree-tos
 
 volumes:
   dist:
